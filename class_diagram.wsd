@@ -1,0 +1,63 @@
+/'
+https://plantuml.com/class-diagram
+https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-class-diagram-tutorial/
+'/
+
+@startuml CDIO del 2 class diagram
+'skinparam classAttributeIconSize 0
+
+class Dice {
+    -sides: int
+    -value: int
+    +Dice(sides: int)
+    +rollDice(): void
+    +getValue(): int
+}
+
+class Cup {
+    -dice: Dice[]
+    -amountOfDice: int
+    +Cup(amountOfDice: int, diceSides: int)
+    +rollDice(): void
+    +getDiceValues(): int[]
+    +toString(): String
+}
+Dice <.. Cup::dice
+
+class Player {
+    -name: String
+    -account: Account
+    -field: int
+    +Player(name: String, startBalance: int)
+    +getField(): int
+    +setField(field: int)
+    +toString(): String
+}
+
+class Account {
+    -balance: int
+    +Account(startBalance: int)
+    +getBalance(): int
+    +setBalance(): void
+    +toString(): String
+}
+Account <.. Player::account
+
+class BoardField {
+    -name: String
+    -points: int
+}
+
+class Game {
+    -players: Player[]
+    -boardFields: BoardField[]
+    -cup: Cup
+    +Game(players: int, diceSides: int)
+    +startGame(): void
+    +toString(): String
+}
+BoardField <.. Game::boardFields
+Cup <.. Game::cup
+Player <.. Game::players
+
+@enduml
