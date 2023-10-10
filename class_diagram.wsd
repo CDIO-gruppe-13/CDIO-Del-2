@@ -3,24 +3,17 @@ https://plantuml.com/class-diagram
 https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-class-diagram-tutorial/
 '/
 
-@startuml class_diagram
-class Dice {
-    -sides: int
-    -value: int
-    +Dice(sides: int)
-    +rollDice(): void
-    +getValue(): int
-}
+@startuml CDIO del 2 class diagram
+'skinparam classAttributeIconSize 0
 
-class Cup {
-    -dice: Dice[]
-    -amountOfDice: int
-    +Cup(amountOfDice: int, diceSides: int)
-    +rollDice(): void
-    +getDiceValues(): int[]
+class Game {
+    -players: Player[]
+    -boardFields: BoardField
+    -cup: Cup
+    +Game(players: int, diceSides: int)
+    +startGame(): void
     +toString(): String
 }
-Dice <.. Cup::dice
 
 class Player {
     -name: String
@@ -32,6 +25,28 @@ class Player {
     +toString(): String
 }
 
+class BoardField {
+    -name: String
+    -points: int
+}
+
+class Cup {
+    -dice: Dice[]
+    -amountOfDice: int
+    +Cup(amountOfDice: int, diceSides: int)
+    +rollDice(): void
+    +getDiceValues(): int[]
+    +toString(): String
+}
+
+class Dice {
+    -sides: int
+    -value: int
+    +Dice(sides: int)
+    +rollDice(): void
+    +getValue(): int
+}
+
 class Account {
     -balance: int
     +Account(startBalance: int)
@@ -39,23 +54,10 @@ class Account {
     +setBalance(): void
     +toString(): String
 }
-Account <.. Player::account
 
-class BoardField {
-    -name: String
-    -points: int
-}
-
-class Game {
-    -players: Player[]
-    -boardFields: BoardField[]
-    -cup: Cup
-    +Game(players: int, diceSides: int)
-    +startGame(): void
-    +toString(): String
-}
-BoardField <.. Game::boardFields
-Cup <.. Game::cup
-Player <.. Game::players
-
+Game ..> Player::name
+Game ..> BoardField::name
+Game ..> Cup::dice
+Cup ..> Dice::value
+Player ..> Account::balance
 @enduml
