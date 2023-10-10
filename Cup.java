@@ -2,32 +2,32 @@ import java.util.Vector;
 
 /**
  * The {@code Cup} class simulates the cup typically used in board games to roll
- * multiple die.
+ * multiple dice.
  */
 public class Cup {
-    private Vector<Dice> die = new Vector<Dice>();
-    private int amountOfDie;
+    private Vector<Dice> dice = new Vector<Dice>();
+    private int amountOfDice;
 
     /**
      * Constructs a {@code Cup} object that contains a specified amount of
      * {@code Dice} objects
      * 
-     * @param amountOfDie integar value of the number of die in the cup
+     * @param amountOfDice integar value of the number of dice in the cup
      */
-    public Cup(int amountOfDie) {
-        this.amountOfDie = amountOfDie;
-        for (var i = 0; i < this.amountOfDie; i++) {
+    public Cup(int amountOfDice) {
+        this.amountOfDice = amountOfDice;
+        for (var i = 0; i < this.amountOfDice; i++) {
             var dice = new Dice(6);
-            this.die.add(dice);
+            this.dice.add(dice);
         }
     }
 
     /**
-     * Rolls all the die in the cup
+     * Rolls all the dice in the cup
      */
-    public void rollDie() {
-        for (var i = 0; i < this.amountOfDie; i++) {
-            this.die.get(i).rollDice();
+    public void rollDice() {
+        for (var i = 0; i < this.amountOfDice; i++) {
+            this.dice.get(i).rollDice();
         }
 
     }
@@ -35,31 +35,31 @@ public class Cup {
     /**
      * @return an array of integars that contain the value of each dice in the cup
      */
-    public int[] getDieValues() {
-        int[] values = new int[this.amountOfDie];
-        for (var i = 0; i < this.amountOfDie; i++) {
-            values[i] = this.die.get(i).getValue();
+    public int[] getDiceValues() {
+        int[] values = new int[this.amountOfDice];
+        for (var i = 0; i < this.amountOfDice; i++) {
+            values[i] = this.dice.get(i).getValue();
         }
         return values;
     }
 
     /** 
-     * @return the sum of all die
+     * @return the sum of all dice
      */
-    public int getDieSum() {
+    public int getDiceSum() {
         int sum = 0;
-        for (var i = 0; i < this.amountOfDie; i++) {
-            sum += this.die.get(i).getValue();
+        for (var i = 0; i < this.amountOfDice; i++) {
+            sum += this.dice.get(i).getValue();
         }
         return sum;
     }
 
     /** 
-     * @return if the values of the die are the same
+     * @return if the values of the dice are the same
      */
-    public boolean isDieEqual() {
-        for (var i = 1; i < this.amountOfDie; i++) {
-            if (this.die.get(i - 1).getValue() != this.die.get(i).getValue()) {
+    public boolean isDiceEqual() {
+        for (var i = 1; i < this.amountOfDice; i++) {
+            if (this.dice.get(i - 1).getValue() != this.dice.get(i).getValue()) {
                 return false;
             }
         }
