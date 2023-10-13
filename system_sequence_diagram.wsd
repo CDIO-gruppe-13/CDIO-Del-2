@@ -1,0 +1,34 @@
+@startuml system_sequence_diagram
+
+participant ": Account" <<(C,#ADD1B2)>>
+actor "p1 : Player" <<(C,#ADD1B2)>>
+actor "p2 : Player" <<(C,#ADD1B2)>>
+participant Console
+participant ": Game" <<(C,#ADD1B2)>>
+participant ": Cup" <<(C,#ADD1B2)>>
+
+[o-> ": Game"
+": Game" -> Console: Intro message
+
+group while [winner == none]
+    alt roll
+        {roll} "p1 : Player" -> Console: Type input
+        ": Game" -> Console: Read input
+        "p1 : Player" -> ": Game": cup.rollDice()
+        ": Game" -> ": Cup": rollDice()
+        ": Game" -> ": Cup": sum = getDiceSum()
+        ": Game" -> "p1 : Player": field = getField()
+        ": Game" -> ": Game": newField = (sum + field) % totalFields
+        ": Game" -> ": Game": points = fields[newField]
+        ": Game" -> "p1 : Player": setField(newField)
+        ": Game" -> "p1 : Player": player1.account.addBalance(points)
+        "p1 : Player" -> ": Account": addBalance(points)
+        ": Game" -> ": Game": switchTurn()
+    else invalid input
+        ": Game" -> ": Game"
+    else quit
+        ": Game" ->x ": Game"
+    end
+end
+
+@enduml
