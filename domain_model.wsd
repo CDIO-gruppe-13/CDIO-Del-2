@@ -1,0 +1,36 @@
+@startuml domain_model
+skinparam linetype polyline
+class Player {
+    name
+    account
+
+}
+class Game {
+    players
+    boardFields
+    cup
+
+}
+class Cup {
+    dice
+    amountOfDice
+
+}
+class BoardField {
+    name
+    points
+    description
+}
+class Dice {
+    sides
+    value
+}
+
+Game "1" - "1" Cup: Includes
+Game "1" - "2" Player: Plays
+Game "1" -- "11" BoardField: Includes
+Game "1" -- "2" Dice: Includes
+Cup "1" - "1" Player: Shakes
+Cup "1" - "2" Dice: Rolls
+
+@enduml
