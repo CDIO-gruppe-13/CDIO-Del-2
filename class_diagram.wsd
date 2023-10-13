@@ -12,6 +12,8 @@ class Game {
     -cup: Cup
     +Game(players: int, diceSides: int)
     +startGame(): void
+    +getTurn(): int
+    +switchTurn(): void
     +toString(): String
 }
 
@@ -36,6 +38,8 @@ class Cup {
     +Cup(amountOfDice: int, diceSides: int)
     +rollDice(): void
     +getDiceValues(): int[]
+    +getDiceSum(): int
+    +isDiceEqual(): boolean
     +toString(): String
 }
 
@@ -51,7 +55,7 @@ class Account {
     -balance: int
     +Account(startBalance: int)
     +getBalance(): int
-    +setBalance(): void
+    +addBalance(): void
     +toString(): String
 }
 
