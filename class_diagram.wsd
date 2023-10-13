@@ -20,16 +20,17 @@ class Game {
 class Player {
     -name: String
     -account: Account
-    -field: int
     +Player(name: String, startBalance: int)
-    +getField(): int
-    +setField(field: int)
     +toString(): String
 }
 
 class BoardField {
     -name: String
     -points: int
+    -description: String
+    +getPoints(): int
+    +getName(): String
+    +getDescription(): String
 }
 
 class Cup {
