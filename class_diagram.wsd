@@ -3,7 +3,7 @@ https://plantuml.com/class-diagram
 https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-class-diagram-tutorial/
 '/
 
-@startuml CDIO del 2 class diagram
+@startuml class_diagram
 'skinparam classAttributeIconSize 0
 
 class Game {
