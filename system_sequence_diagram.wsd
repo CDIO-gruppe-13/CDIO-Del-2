@@ -1,6 +1,7 @@
 @startuml system_sequence_diagram
 
-participant ": Account" <<(C,#ADD1B2)>>
+participant "p1: Account" <<(C,#ADD1B2)>>
+participant "p2: Account" <<(C,#ADD1B2)>>
 actor "p1 : Player" <<(C,#ADD1B2)>>
 actor "p2 : Player" <<(C,#ADD1B2)>>
 participant Console
@@ -11,24 +12,29 @@ participant ": Cup" <<(C,#ADD1B2)>>
 ": Game" -> Console: Intro message
 
 group while [winner == none]
-    alt roll
         {roll} "p1 : Player" -> Console: Type input
         ": Game" -> Console: Read input
+    alt roll
         "p1 : Player" -> ": Game": cup.rollDice()
         ": Game" -> ": Cup": rollDice()
         ": Game" -> ": Cup": sum = getDiceSum()
-        ": Game" -> "p1 : Player": field = getField()
-        ": Game" -> ": Game": newField = (sum + field) % totalFields
-        ": Game" -> ": Game": points = fields[newField]
-        ": Game" -> "p1 : Player": setField(newField)
-        ": Game" -> "p1 : Player": player1.account.addBalance(points)
-        "p1 : Player" -> ": Account": addBalance(points)
+        ": Game" -> ": Game": points = fields[sum + field].points
+        ": Game" -> "p1 : Player": account.addBalance(points)
+        "p1 : Player" -> "p1: Account": addBalance(points)
+        ": Game" -> ": Game": switchTurn()
+        "p2 : Player" -> ": Game": cup.rollDice()
+        ": Game" -> ": Cup": rollDice()
+        ": Game" -> ": Cup": sum = getDiceSum()
+        ": Game" -> ": Game": points = fields[sum + field].points
+        ": Game" -> "p2 : Player": account.addBalance(points)
+        "p2 : Player" -> "p2: Account": addBalance(points)
         ": Game" -> ": Game": switchTurn()
     else invalid input
         ": Game" -> ": Game"
     else quit
         ": Game" ->x ": Game"
     end
+    ": Game" ->x ": Game"
 end
 
 @enduml
