@@ -21,6 +21,7 @@ class Player {
     -name: String
     +account: Account
     +Player(name: String, startBalance: int)
+    +getName(): String
     +toString(): String
 }
 
