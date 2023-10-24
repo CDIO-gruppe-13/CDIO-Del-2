@@ -95,30 +95,34 @@ public class Game {
       if (input.equals("q") || input.equals("quit")) {
         break gameloop;
       }
-      if (input.equals("r") || input.equals("roll")) {
-        this.cup.rollDice();
-        var sum = this.cup.getDiceSum();
-        var balance = this.players[turn].account.getBalance();
-        var boardPosition = sum % this.boardFields.length;
-        this.players[turn].account.setBalance(
-            balance + this.boardFields[boardPosition].getPoints()
-          );    
-          var dieValues = this.cup.getDiceValues();
-          System.out.print("Die values:");
-          for (var j = 0; j < dieValues.length; j++) {
-              System.out.print(" " + dieValues[j]);
-          }
-          System.out.println(", Sum: " + cup.getDiceSum());
-
-          System.out.println("Landed on field nr. " + boardPosition + ": " + this.boardFields[boardPosition].getName());
-          System.out.println(this.boardFields[boardPosition].getDescription());
-          
-        System.out.println(this.players[turn].account.toString() + "\n");
-
-      } else {
+      if (input.equals("r") || input.equals("roll")) {} else {
         System.out.println("Wrong input, try again");
         continue;
       }
+      this.cup.rollDice();
+      var sum = this.cup.getDiceSum();
+      var balance = this.players[turn].account.getBalance();
+      var boardPosition = sum % this.boardFields.length;
+      this.players[turn].account.setBalance(
+          balance + this.boardFields[boardPosition].getPoints()
+        );
+      var dieValues = this.cup.getDiceValues();
+      System.out.print("Die values:");
+      for (var j = 0; j < dieValues.length; j++) {
+        System.out.print(" " + dieValues[j]);
+      }
+      System.out.println(", Sum: " + cup.getDiceSum());
+
+      System.out.println(
+        "Landed on field nr. " +
+        boardPosition +
+        ": " +
+        this.boardFields[boardPosition].getName()
+      );
+      System.out.println(this.boardFields[boardPosition].getDescription());
+
+      System.out.println(this.players[turn].account.toString() + "\n");
+
       // check for winner
       for (var i = 0; i < this.players.length; i++) {
         if (this.players[i].account.getBalance() >= 3000) {
@@ -128,6 +132,9 @@ public class Game {
           break gameloop;
         }
       }
+      if (
+        this.boardFields[boardPosition].getName().equals("The Werewall")
+      ) continue;
       turn = (turn + 1) % this.players.length;
     }
     scanner.close();
