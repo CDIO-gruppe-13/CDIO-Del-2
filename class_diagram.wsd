@@ -19,7 +19,7 @@ class Game {
 
 class Player {
     -name: String
-    -account: Account
+    +account: Account
     +Player(name: String, startBalance: int)
     +toString(): String
 }
