@@ -14,10 +14,10 @@ public class Cup {
      * 
      * @param amountOfDice integar value of the number of dice in the cup
      */
-    public Cup(int amountOfDice) {
+    public Cup(int amountOfDice, int diceSides) {
         this.amountOfDice = amountOfDice;
         for (var i = 0; i < this.amountOfDice; i++) {
-            var dice = new Dice(6);
+            var dice = new Dice(diceSides);
             this.dice.add(dice);
         }
     }

@@ -75,7 +75,7 @@ public class Game {
     this.players = new Player[players];
 
     // System.out.print("How many sides should the two dice have? ");
-    this.cup = new Cup(2);
+    this.cup = new Cup(2, diceSides);
   }
 
   void startGame() {
