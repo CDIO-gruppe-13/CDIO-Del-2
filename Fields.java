@@ -33,7 +33,7 @@ public class Fields {
 
         Board field_10 = new Board("The Werewall", -80,
                         "Oh wall, why do you have so big teeth? Oh no, it's a werewall! Don't get bitten! (You get bitten, and a has to pay 80 gold for a tetanus shot) - but you also get a lollipop! Roll the dice again!");
-
+        // player gets an extra turn after warewall.
         Board field_11 = new Board("The Pit", -50,
                         "The Pit is so deep you can't even see the bottom of it - you read a sign saying 'Wishing Pit' - you try your luck, make a wish and throw 50 gold down the pit - your wish doesn't come true.");
 
