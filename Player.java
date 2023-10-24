@@ -11,4 +11,8 @@ public class Player {
   public String toString() {
     return this.name + ": " + this.account.toString();
   }
+
+  public String getName() {
+    return this.name;
+  }
 }
