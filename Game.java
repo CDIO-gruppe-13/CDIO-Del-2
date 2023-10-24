@@ -3,11 +3,13 @@ public class Game {
   private Player[] players;
   private Cup cup;
   private BoardField[] boardFields = {
+    // roll 0 (not possible)
     new BoardField(
       "The Void",
       0,
       "Oh no, you've rolled zero! Your turn is now skipped!"
     ),
+    // roll 1 (not possible)
     new BoardField(
       "Theif's den",
       100,
