@@ -5,7 +5,7 @@ import java.util.Arrays;
  */
 public class CupTest {
     public static void main(String[] args) {
-        var cup = new Cup(2);
+        var cup = new Cup(2, 6);
         var pairs = 0;
         int[] sums = new int[11];
         double sum = 0;
