@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Scanner;
+
 public class Game {
 
   private Player[] players;
@@ -79,23 +83,81 @@ public class Game {
   }
 
   void startGame() {
-    var scanner = new java.util.Scanner(System.in);
-
-    for (var i = 0; i < this.players.length; i++) {
-      System.out.print("Player " + (i + 1) + " name: ");
-      this.players[i] = new Player(scanner.nextLine(), 1000);
+    Scanner scanner = new Scanner(System.in);
+    var loadSaveFile = false;
+    try {
+      var saveFile = new File("SaveData.txt");
+      if (saveFile.exists()) {
+        while (true) {
+          System.out.println(
+            "Do you wish to load the save file? yes (y), no (n)"
+          );
+          var input = scanner.nextLine();
+          if (input.equals("y") || input.equals("yes")) {
+            loadSaveFile = true;
+            break;
+          } else if (input.equals("n") || input.equals("no")) {
+            break;
+          } else {
+            continue;
+          }
+        }
+      }
+      if (loadSaveFile) {
+        var fileScanner = new Scanner(saveFile);
+        for (var i = 0; fileScanner.hasNextLine(); i++) {
+          var playerData = fileScanner.nextLine().split(",");
+          var playerName = playerData[0];
+          var playerBalance = Integer.parseInt(playerData[1]);
+          this.players[i] = new Player(playerName, playerBalance);
+        }
+        fileScanner.close();
+        for (var i = 0; i < this.players.length; i++) {
+          System.out.println(this.players[i].toString());
+        }
+      }
+    } catch (Exception e) {
+      System.out.println("An error occured when loading a save file");
+    }
+    if (!loadSaveFile) {
+      for (var i = 0; i < this.players.length; i++) {
+        System.out.print("Player " + (i + 1) + " name: ");
+        this.players[i] = new Player(scanner.nextLine(), 1000);
+      }
     }
 
     int turn = 0;
+
     gameloop:while (true) {
       System.out.println(
-        "Turn: " + this.players[turn].getName() + ", roll (r), quit (q): "
+        "Turn: " +
+        this.players[turn].getName() +
+        ", roll (r), quit (q), save (s): "
       );
       var input = scanner.nextLine();
       if (input.equals("q") || input.equals("quit")) {
         break gameloop;
       }
-      if (input.equals("r") || input.equals("roll")) {} else {
+      if (input.equals("r") || input.equals("roll")) {} else if (
+        input.equals("s") || input.equals("save")
+      ) {
+        try {
+          var fileWriter = new FileWriter("SaveData.txt");
+          for (var i = 0; i < this.players.length; i++) {
+            fileWriter.write(
+              String.format(
+                "%s,%d\n",
+                this.players[i].getName(),
+                this.players[i].account.getBalance()
+              )
+            );
+          }
+          fileWriter.close();
+        } catch (Exception e) {
+          System.out.println("The game was not able to be saved");
+        }
+        continue;
+      } else {
         System.out.println("Wrong input, try again");
         continue;
       }
