@@ -29,7 +29,6 @@ public class Game {
     this.players = new Player[players];
     var boardNames = this.language.getBoardNames();
     this.boardFields = new BoardField[boardNames.length / 2];
-    System.out.println(boardNames.length / 2);
     for (var i = 0; i < (boardNames.length / 2); i++) {
       this.boardFields[i] =
         new BoardField(

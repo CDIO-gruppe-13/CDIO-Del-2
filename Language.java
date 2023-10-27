@@ -42,9 +42,6 @@ public class Language {
           }
         }
       }
-      for (var i = 0; i < this.boardFields.length; i++) {
-        System.out.println(this.boardFields[i]);
-      }
       br.close();
     } catch (Exception e) {}
   }
