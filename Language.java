@@ -13,6 +13,7 @@ public class Language {
   private String winner;
   private String notSaved;
   private String notLoaded;
+  private String accountMessage;
   
   private String[] boardFields;
 
@@ -34,9 +35,10 @@ public class Language {
             this.winner = data[8];
             this.notSaved = data[9];
             this.notLoaded = data[10];
-            this.boardFields = new String[data.length - 11];
-            for (var i = 11; i < data.length; i++) {
-             this.boardFields[i-11] = data[i];
+            this.accountMessage = data[11];
+            this.boardFields = new String[data.length - 12];
+            for (var i = 12; i < data.length; i++) {
+             this.boardFields[i-12] = data[i];
             }
             break;
           }
@@ -88,7 +90,12 @@ public class Language {
   public void printNotLoaded() {
     System.out.println(this.notLoaded);
   }
+
   public String[] getBoardNames() {
-    return this.boardFields;
+      return boardFields;
+  }
+
+  public String getAccountMessage() {
+    return this.accountMessage;
   }
 }

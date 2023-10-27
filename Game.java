@@ -24,9 +24,25 @@ public class Game {
   private BoardField[] boardFields;
   private Language language;
   private int turn = 0;
+  Scanner scanner;
 
-  Game(int players, int diceSides, String language) {
-    this.language = new Language(language);
+  Game(int players, int diceSides) {
+    this.scanner = new Scanner(System.in);
+    while (true) {
+      System.out.println("Which language? (english, deutsch, dansk, nihongo)");
+      var language = this.scanner.nextLine();
+      if (
+        language.equals("english") ||
+        language.equals("deutsch") ||
+        language.equals("dansk") ||
+        language.equals("nihongo")
+      ) {
+        this.language = new Language(language);
+        break;
+      } else {
+        System.out.println("Wrong input.");
+      }
+    }
     this.players = new Player[players];
     var boardNames = this.language.getBoardNames();
     this.boardFields = new BoardField[boardNames.length / 2];
@@ -42,14 +58,16 @@ public class Game {
   }
 
   void startGame() {
-    Scanner scanner = new Scanner(System.in);
+    // double start;
+    // double end;
+
     var loadSaveFile = false;
     try {
       var saveFile = new File("SaveData.txt");
       if (saveFile.exists()) {
         while (true) {
           this.language.printSaveQuestion();
-          var input = scanner.nextLine();
+          var input = this.scanner.nextLine();
           if (input.equals("y") || input.equals("yes")) {
             loadSaveFile = true;
             break;
@@ -70,7 +88,12 @@ public class Game {
         }
         fileScanner.close();
         for (var i = 0; i < this.players.length; i++) {
-          System.out.println(this.players[i].toString());
+          System.out.println(
+            this.players[i].getName() +
+            ": " +
+            this.language.getAccountMessage() +
+            this.players[i].account.getBalance()
+          );
         }
       }
     } catch (Exception e) {
@@ -79,7 +102,7 @@ public class Game {
     if (!loadSaveFile) {
       for (var i = 0; i < this.players.length; i++) {
         this.language.printPlayerNameInput(i + 1);
-        this.players[i] = new Player(scanner.nextLine(), 1000);
+        this.players[i] = new Player(this.scanner.nextLine(), 1000);
       }
     }
 
@@ -87,13 +110,13 @@ public class Game {
 
     gameloop:while (true) {
       this.language.printPlayerOptions(this.players[turn].getName());
-      var input = scanner.nextLine();
+      var input = this.scanner.nextLine();
       if (input.equals("q") || input.equals("quit")) {
         break gameloop;
       }
-      if (input.equals("r") || input.equals("roll")) {} else if (
-        input.equals("s") || input.equals("save")
-      ) {
+      if (input.equals("r") || input.equals("roll")) {
+        // start = System.nanoTime();
+      } else if (input.equals("s") || input.equals("save")) {
         try {
           var fileWriter = new FileWriter("SaveData.txt");
           for (var i = 0; i < this.players.length; i++) {
@@ -132,7 +155,11 @@ public class Game {
 
       System.out.println(this.boardFields[boardPosition].getDescription());
 
-      System.out.println(this.players[turn].account.toString() + "\n");
+      System.out.println(
+        this.language.getAccountMessage() +
+        this.players[turn].account.getBalance() +
+        System.lineSeparator()
+      );
 
       // check for winner
       for (var i = 0; i < this.players.length; i++) {
@@ -146,8 +173,12 @@ public class Game {
         this.boardFields[boardPosition].getName().equals("The Werewall")
       ) continue;
       switchTurn();
+      // end = System.nanoTime();
+      // System.out.println(
+      //   "This test took " + (end - start) / 1000000000 + " seconds"
+      // );
     }
-    scanner.close();
+    this.scanner.close();
   }
 
   public void switchTurn() {

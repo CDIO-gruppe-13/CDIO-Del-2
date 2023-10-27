@@ -5,6 +5,11 @@ class Player {
     account
 
 }
+
+class Language {
+
+}
+
 class Game {
     players
     boardFields
@@ -26,6 +31,7 @@ class Dice {
     value
 }
 
+Game "1" - "1" Language: Includes
 Game "1" - "1" Cup: Includes
 Game "1" - "2" Player: Plays
 Game "1" -- "11" BoardField: Includes

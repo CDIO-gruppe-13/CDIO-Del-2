@@ -18,7 +18,7 @@ public class Account {
     }
   }
 
-  public String toString() {
-    return "The account has a balance of: " + this.balance;
+  public String toString(String message) {
+    return message + this.balance;
   }
 }

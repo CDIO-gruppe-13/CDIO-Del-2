@@ -10,9 +10,9 @@ class Game {
     -players: Player[]
     -boardFields: BoardField
     -cup: Cup
-    +Game(players: int, diceSides: int)
+    -language: Language
+    +Game(players: int, diceSides: int, language: String)
     +startGame(): void
-    +getTurn(): int
     +switchTurn(): void
     +toString(): String
 }
@@ -85,9 +85,10 @@ class Account {
     +toString(): String
 }
 
-Game ..> Player::name
-Game ..> BoardField::name
-Game ..> Cup::dice
-Cup ..> Dice::value
-Player ..> Account::balance
+Game::players ..> Player
+Game::boardFields ..> BoardField
+Game::cup ..> Cup
+Game::language ..> Language
+Cup::dice ..> Dice
+Player::account ..> Account
 @enduml
