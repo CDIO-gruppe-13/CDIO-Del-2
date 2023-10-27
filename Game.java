@@ -23,9 +23,10 @@ public class Game {
   };
   private BoardField[] boardFields;
   private Language language;
+  private int turn = 0;
 
-  Game(int players, int diceSides) {
-    this.language = new Language("english");
+  Game(int players, int diceSides, String language) {
+    this.language = new Language(language);
     this.players = new Player[players];
     var boardNames = this.language.getBoardNames();
     this.boardFields = new BoardField[boardNames.length / 2];
@@ -37,8 +38,6 @@ public class Game {
           boardNames[i * 2 + 1]
         );
     }
-
-    // System.out.print("How many sides should the two dice have? ");
     this.cup = new Cup(2, diceSides);
   }
 
@@ -146,8 +145,12 @@ public class Game {
       if (
         this.boardFields[boardPosition].getName().equals("The Werewall")
       ) continue;
-      turn = (turn + 1) % this.players.length;
+      switchTurn();
     }
     scanner.close();
+  }
+
+  public void switchTurn() {
+    this.turn = (this.turn + 1) % this.players.length;
   }
 }
