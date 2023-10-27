@@ -17,6 +17,30 @@ class Game {
     +toString(): String
 }
 
+class Language {
+    - String saveQuestion
+    - String playerNameInput
+    - String playerOptions
+    - String wrongInput
+    - String diceValues
+    - String sum
+    - String landedOn
+    - String winner
+    - String notSaved
+    - String notLoaded
+    + printSaveQuestion(): void
+    + printPlayerNameInput(number: int): void
+    + printPlayerOptions(name: String): void
+    + printWrongInput(): void
+    + printDiceValues(diceValues: int[]): void
+    + printSum(sumValue: int): void
+    + printLandedOn(boardPosition: int, boardName: String): void
+    + printWinner(name: String): void
+    + printNotSaved(): void
+    + printNotLoaded(): void
+    + getBoardNames(): String[]
+}
+
 class Player {
     -name: String
     +account: Account
