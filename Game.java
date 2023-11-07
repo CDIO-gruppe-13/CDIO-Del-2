@@ -106,10 +106,8 @@ public class Game {
       }
     }
 
-    int turn = 0;
-
     gameloop:while (true) {
-      this.language.printPlayerOptions(this.players[turn].getName());
+      this.language.printPlayerOptions(this.players[this.turn].getName());
       var input = this.scanner.nextLine();
       if (input.equals("q") || input.equals("quit")) {
         break gameloop;
@@ -139,9 +137,9 @@ public class Game {
       }
       this.cup.rollDice();
       var sum = this.cup.getDiceSum();
-      var balance = this.players[turn].account.getBalance();
+      var balance = this.players[this.turn].account.getBalance();
       var boardPosition = sum % this.boardFields.length;
-      this.players[turn].account.setBalance(
+      this.players[this.turn].account.setBalance(
           balance + this.boardFields[boardPosition].getPoints()
         );
       var diceValues = this.cup.getDiceValues();
@@ -157,7 +155,7 @@ public class Game {
 
       System.out.println(
         this.language.getAccountMessage() +
-        this.players[turn].account.getBalance() +
+        this.players[this.turn].account.getBalance() +
         System.lineSeparator()
       );
 
@@ -173,6 +171,8 @@ public class Game {
         this.boardFields[boardPosition].getName().equals("The Werewall")
       ) continue;
       switchTurn();
+      System.out.println(turn);
+      System.out.println(this.players.length);
       // end = System.nanoTime();
       // System.out.println(
       //   "This test took " + (end - start) / 1000000000 + " seconds"
